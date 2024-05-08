@@ -1,0 +1,40 @@
+<%-include("header");-%>
+<div class="signup">
+    <% if (typeof error!="undefined") { %>
+        <p><%- error.msg %></p>
+    <% } %>
+    <form action="" method="post">
+        <div class="forminput">
+            <label for="firstName">
+                <h3>First name</h3>
+                <input type="text" name="firstName" id="firstName" required>
+            </label>
+        </div>
+        <div class="forminput">
+            <label for="lastName">
+                <h3>Last name</h3>
+                <input type="text" name="lastName" id="lastName" required>
+            </label>
+        </div>
+        <div class="forminput">
+            <label for="username">
+                <h3>Username</h3>
+                <input type="text" name="username" id="username" required>
+            </label>
+        </div>
+        <div class="forminput">
+            <label for="password">
+                <h3>Password</h3>
+                <input type="password" name="password" id="password" required>
+            </label>
+        </div>
+        <div class="forminput">
+            <label for="confirmPassword">
+                <h3>Confirm password</h3>
+                <input type="password" name="confirmPassword" id="confirmpassword" required>
+            </label>
+        </div>
+        <button type="submit">Sign up</button>
+    </form>
+</div>
+<%-include("footer");-%>
