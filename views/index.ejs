@@ -2,11 +2,9 @@
 <% if (currentUser) { %>
     <h2>Hello <%=currentUser.username%></h2>
     <% if (!currentUser.membership) { %>
-     <div class="buttons">
-         <a href="/join_club">Join secret club</a>
-             <% } %>
-             <a href="/log_out">Logout</a>
-     </div>
+     <a href="/join_club">Join secret club</a>
+    <% } %>
+    <a href="/log_out">Logout</a>
 <% } else { %>
     <div class="buttons">
         <h2>Hello user!</h2>
