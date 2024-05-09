@@ -22,7 +22,13 @@ exports.sign_up_post = [
   body("username", "username must be longer than 3 characters")
     .trim()
     .isLength({ min: 3 })
-    .escape(),
+    .escape()
+    .custom(async (value) => {
+      const used = await User.findOne({ username: value });
+      if (used) {
+        throw new Error("Username already in use");
+      }
+    }),
   body("password", "password must be longer than 3 characters")
     .trim()
     .isLength({ min: 3 })
