@@ -13,5 +13,7 @@ router.get("/log_in", userController.log_in_get);
 router.post("/log_in", userController.log_in_post);
 router.get("/log_out", userController.log_out);
 router.post("/send_message", messageController.send_message);
+router.get("/set_admin", userController.set_admin_get);
+router.post("/set_admin", userController.set_admin_post);
 
 module.exports = router;

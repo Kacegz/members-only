@@ -56,6 +56,7 @@ exports.sign_up_post = [
             username: req.body.username,
             password: hashedpassword,
             membership: false,
+            admin: false,
           });
           await user.save();
           res.redirect("/");
@@ -67,7 +68,7 @@ exports.sign_up_post = [
   }),
 ];
 
-exports.join_club_get = asyncHandler((req, res, next) => {
+exports.join_club_get = asyncHandler(async (req, res, next) => {
   res.render("join_club");
 });
 exports.join_club_post = [
@@ -83,10 +84,6 @@ exports.join_club_post = [
     }
     console.log(req.user);
     const user = new User({
-      firstName: req.user.firstName,
-      lastName: req.user.lastName,
-      username: req.user.username,
-      password: req.user.password,
       _id: req.user.id,
       membership: true,
     });
@@ -95,22 +92,37 @@ exports.join_club_post = [
   }),
 ];
 
-exports.log_in_get = asyncHandler((req, res, next) => {
+exports.log_in_get = asyncHandler(async (req, res, next) => {
   res.render("log_in");
 });
 
-exports.log_in_post = [
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/log_in",
-    failureMessage: true,
-  }),
-];
-exports.log_out = (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
+(exports.log_in_post = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/log_in",
+  failureMessage: true,
+})),
+  (exports.log_out = (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+    });
+    res.redirect("/");
   });
-  res.redirect("/");
-};
+
+exports.set_admin_get = asyncHandler(async (req, res) => {
+  res.render("admin");
+});
+
+exports.set_admin_post = asyncHandler(async (req, res, next) => {
+  if (req.body.code === process.env.admin) {
+    console.log(req.user);
+    const user = new User({
+      ...req.user,
+      _id: req.user.id,
+      admin: true,
+    });
+    await User.findOneAndUpdate({ _id: req.user.id }, user);
+    res.redirect("/");
+  }
+});
