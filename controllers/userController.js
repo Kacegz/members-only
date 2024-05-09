@@ -94,8 +94,6 @@ exports.log_in_get = asyncHandler((req, res, next) => {
 });
 
 exports.log_in_post = [
-  body("username").escape(),
-  body("password").escape(),
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/log_in",
