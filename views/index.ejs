@@ -1,5 +1,37 @@
 <%-include("header");-%>
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
-<a href="/sign_up">sign up here!</a>
+<% if (currentUser) { %>
+    <h2>Hello <%=currentUser.username%></h2>
+    <% if (!currentUser.membership) { %>
+     <div class="buttons">
+         <a href="/join_club">Join secret club</a>
+             <% } %>
+             <a href="/log_out">Logout</a>
+     </div>
+<% } else { %>
+    <div class="buttons">
+        <h2>Hello user!</h2>
+        <a href="/log_in"><button class="linkbutton">Click here to log in</button></a>
+        <i class="button-or">or</i>
+        <a href="/sign_up"><button class="linkbutton">Click here to sign up</button></a>
+    </div>
+    <%}%>
+
+<div class="messages">
+    <% messages.forEach(message => { %>
+     <div class="message">
+        <% if (currentUser && currentUser.membership) { %>
+         <p>Author: <%= message.user.username %>, <%= message.formattedDate %></p>
+        <% } %>
+        <h4>Title: <%= message.title %></h4>
+        <p><%= message.text %></p>
+     </div>
+    <% }) %>
+</div>
+<% if (currentUser) { %>
+    <form action="/send_message" method="post" class="messageform">
+        <input type="text" name="title" id="" class="indexinput" placeholder="title">
+        <input type="submit" class="linkbutton" value="Send">
+        <input type="text" name="message" id="" placeholder="message" class="messageinput indexinput" >
+    </form>
+<% } %>
 <%-include("footer");-%>

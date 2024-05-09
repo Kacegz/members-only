@@ -1,0 +1,20 @@
+<%-include("header");-%>
+<div class="login">
+    <a href="/">Go back</a>
+    <form action="/log_in" method="post">
+        <div class="forminput">
+            <label for="username">
+                <h3>Username</h3>
+                <input type="text" name="username" id="username" required>
+            </label>
+        </div>
+        <div class="forminput">
+            <label for="password">
+                <h3>Password</h3>
+                <input type="password" name="password" id="password" required>
+            </label>
+        </div>
+        <input type="submit" class="linkbutton" value="Log in">
+    </form>
+</div>
+<%-include("footer");-%>
