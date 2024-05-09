@@ -1,7 +1,9 @@
+require("dotenv").config();
 const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const passport = require("passport");
 
 exports.sign_up_get = asyncHandler(async (req, res, next) => {
   res.render("sign_up", {
@@ -35,19 +37,19 @@ exports.sign_up_post = [
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      res.render("sign_up", { title: "Sign up", error: errors.array()[0] });
+      res.render("sign_up", { error: errors.array()[0] });
     } else {
       try {
         bcrypt.hash(req.body.password, 10, async (err, hashedpassword) => {
           if (err) {
-            throw new Error("Something went wrong");
+            next(err);
           }
           const user = new User({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             username: req.body.username,
             password: hashedpassword,
-            membership: "member",
+            membership: false,
           });
           await user.save();
           res.redirect("/");
@@ -58,3 +60,53 @@ exports.sign_up_post = [
     }
   }),
 ];
+
+exports.join_club_get = asyncHandler((req, res, next) => {
+  res.render("join_club");
+});
+exports.join_club_post = [
+  body("code", "Code is wrong").custom((value) => {
+    return value === process.env.membercode;
+  }),
+  asyncHandler(async (req, res, next) => {
+    const error = validationResult(req);
+    if (!error.isEmpty) {
+      res.render("join_club", {
+        error: error,
+      });
+    }
+    console.log(req.user);
+    const user = new User({
+      firstName: req.user.firstName,
+      lastName: req.user.lastName,
+      username: req.user.username,
+      password: req.user.password,
+      _id: req.user.id,
+      membership: true,
+    });
+    await User.findOneAndUpdate({ _id: req.user.id }, user);
+    res.redirect("/");
+  }),
+];
+
+exports.log_in_get = asyncHandler((req, res, next) => {
+  res.render("log_in");
+});
+
+exports.log_in_post = [
+  body("username").escape(),
+  body("password").escape(),
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/log_in",
+    failureMessage: true,
+  }),
+];
+exports.log_out = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+  });
+  res.redirect("/");
+};
