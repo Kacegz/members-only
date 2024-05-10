@@ -22,6 +22,11 @@
         <% } %>
         <h4>Title: <%= message.title %></h4>
         <p><%= message.text %></p>
+        <% if (currentUser && currentUser.admin) { %>
+            <form action="delete_message/<%= message.id %>" method="post">
+                <input type="submit" value="Delete">
+            </form>
+        <% } %>
      </div>
     <% }) %>
 </div>

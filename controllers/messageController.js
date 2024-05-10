@@ -32,3 +32,9 @@ exports.send_message = [
     res.redirect("/");
   }),
 ];
+exports.delete_message = asyncHandler(async (req, res, next) => {
+  const message = await Message.findById(req.params.id).exec();
+  console.log(message);
+  await Message.findByIdAndDelete(req.params.id);
+  res.redirect("/");
+});
