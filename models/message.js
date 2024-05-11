@@ -8,7 +8,7 @@ const MessageSchema = new Schema({
   timestamp: { type: Date, required: true },
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
-MessageSchema.virtual("formattedDate").get(() => {
+MessageSchema.virtual("formattedDate").get(function () {
   return dayjs(this.timestamp).format("DD MMM");
 });
 module.exports = mongoose.model("Message", MessageSchema);
