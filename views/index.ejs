@@ -2,14 +2,17 @@
 <% if (currentUser) { %>
     <h2>Hello <%=currentUser.username%></h2>
     <% if (!currentUser.membership) { %>
-     <a href="/join_club">Join secret club</a>
+     <a href="/join_club" class="smalllink">Join secret club</a>
     <% } %>
+    <% if (currentUser.membership && !currentUser.admin) { %>
+        <a href="/set_admin" class="smalllink">Or maybe become an admin?</a>
+       <% } %>
     <a href="/log_out">Logout</a>
 <% } else { %>
     <div class="buttons">
-        <h2>Hello user!</h2>
+        <h2>Welcome!</h2>
         <a href="/log_in"><button class="linkbutton">Click here to log in</button></a>
-        <i class="button-or">or</i>
+        <i class="or-divider">or</i>
         <a href="/sign_up"><button class="linkbutton">Click here to sign up</button></a>
     </div>
     <%}%>
@@ -24,7 +27,7 @@
         <p><%= message.text %></p>
         <% if (currentUser && currentUser.admin) { %>
             <form action="delete_message/<%= message.id %>" method="post">
-                <input type="submit" value="Delete">
+                <input type="submit" value="Delete" class="deletebutton">
             </form>
         <% } %>
      </div>

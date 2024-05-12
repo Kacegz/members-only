@@ -18,6 +18,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 a {
@@ -64,7 +65,7 @@ form{
   font-size: 18px;
   color: white;
 }
-.button-or{
+.or-divider{
   font-size: 14px;
 }
 .messages{
@@ -102,6 +103,19 @@ form{
 }
 input{
   font-size: 18px;
+}
+.smalllink{
+  font-size: 10px;
+}
+.deletebutton{
+  background-color: var(--mid);
+  border: 0;
+  border-radius: 20px;
+  padding: 10px;
+  font-size: 18px;
+  color: white;
+  align-self: flex-end;
+  width: 100px;
 }
 
 ::-webkit-scrollbar {
