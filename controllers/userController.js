@@ -116,7 +116,6 @@ exports.set_admin_get = asyncHandler(async (req, res) => {
 
 exports.set_admin_post = asyncHandler(async (req, res, next) => {
   if (req.body.code === process.env.admin) {
-    console.log(req.user);
     const user = new User({
       ...req.user,
       _id: req.user.id,

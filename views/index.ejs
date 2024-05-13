@@ -2,7 +2,7 @@
 <% if (currentUser) { %>
     <h2>Hello <%=currentUser.username%></h2>
     <% if (!currentUser.membership) { %>
-     <a href="/join_club" class="smalllink">Join secret club</a>
+     <a href="/join_club" class="smalllink">Psst...click here to join the secret club</a>
     <% } %>
     <% if (currentUser.membership && !currentUser.admin) { %>
         <a href="/set_admin" class="smalllink">Or maybe become an admin?</a>
@@ -35,9 +35,9 @@
 </div>
 <% if (currentUser) { %>
     <form action="/send_message" method="post" class="messageform">
-        <input type="text" name="title" id="" class="indexinput" placeholder="title">
+        <input type="text" name="title" id="" class="textinput" placeholder="title">
         <input type="submit" class="linkbutton" value="Send">
-        <input type="text" name="message" id="" placeholder="message" class="messageinput indexinput" >
+        <input type="text" name="message" id="" placeholder="message" class="messageinput textinput" >
     </form>
 <% } %>
 <%-include("footer");-%>
