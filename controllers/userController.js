@@ -71,44 +71,38 @@ exports.sign_up_post = [
 exports.join_club_get = asyncHandler(async (req, res, next) => {
   res.render("join_club");
 });
-exports.join_club_post = [
-  body("code", "Code is wrong").custom((value) => {
-    return value === process.env.membercode;
-  }),
-  asyncHandler(async (req, res, next) => {
-    const error = validationResult(req);
-    if (!error.isEmpty) {
-      res.render("join_club", {
-        error: error,
-      });
-    }
-    console.log(req.user);
+exports.join_club_post = asyncHandler(async (req, res, next) => {
+  if (req.body.code === process.env.membercode) {
     const user = new User({
       _id: req.user.id,
       membership: true,
     });
     await User.findOneAndUpdate({ _id: req.user.id }, user);
     res.redirect("/");
-  }),
-];
+  } else {
+    res.render("join_club", {
+      error: "Code is wrong",
+    });
+  }
+});
 
 exports.log_in_get = asyncHandler(async (req, res, next) => {
   res.render("log_in");
 });
 
-(exports.log_in_post = passport.authenticate("local", {
+exports.log_in_post = passport.authenticate("local", {
   successRedirect: "/",
   failureRedirect: "/log_in",
   failureMessage: true,
-})),
-  (exports.log_out = (req, res, next) => {
-    req.logout((err) => {
-      if (err) {
-        return next(err);
-      }
-    });
-    res.redirect("/");
+});
+exports.log_out = (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
   });
+  res.redirect("/");
+};
 
 exports.set_admin_get = asyncHandler(async (req, res) => {
   res.render("admin");
@@ -123,5 +117,9 @@ exports.set_admin_post = asyncHandler(async (req, res, next) => {
     });
     await User.findOneAndUpdate({ _id: req.user.id }, user);
     res.redirect("/");
+  } else {
+    res.render("admin", {
+      error: "wrong code",
+    });
   }
 });
