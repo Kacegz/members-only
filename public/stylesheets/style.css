@@ -118,11 +118,11 @@ input{
   width: 100px;
 }
 .error{
-  background-color: red;
+  background-color: #A91D3A;
   padding: 5px;
   border-radius: 10px;
   text-align: center;
-  margin: 10px;
+  margin: 5px;
   font-size: 16px;
 }
 
