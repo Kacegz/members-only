@@ -13,28 +13,30 @@ exports.index = asyncHandler(async (req, res, next) => {
 });
 
 exports.send_message = [
-  body("message").trim().isLength({ min: 1 }).escape(),
-  body("title").trim().isLength({ min: 1 }).escape(),
+  body("title", "Title must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("message", "Message must not be empty")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
   asyncHandler(async (req, res, next) => {
-    const err = validationResult(req);
-    const message = new Message({
-      title: req.body.title,
-      text: req.body.message,
-      timestamp: new Date(),
-      user: req.user.id,
-    });
-    if (!err.isEmpty) {
-      res.render("index", {
-        errors: err.array(),
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.redirect("/");
+    } else {
+      const message = new Message({
+        title: req.body.title,
+        text: req.body.message,
+        timestamp: new Date(),
+        user: req.user.id,
       });
+
+      message.save();
+      res.redirect("/");
     }
-    message.save();
-    res.redirect("/");
   }),
 ];
 exports.delete_message = asyncHandler(async (req, res, next) => {
-  const message = await Message.findById(req.params.id).exec();
-  console.log(message);
   await Message.findByIdAndDelete(req.params.id);
   res.redirect("/");
 });
