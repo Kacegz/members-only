@@ -35,9 +35,9 @@
 </div>
 <% if (currentUser) { %>
     <form action="/send_message" method="post" class="messageform">
-        <input type="text" name="title" id="" class="textinput" placeholder="title">
+        <input type="text" name="title" id="" class="textinput" placeholder="title" required>
         <input type="submit" class="linkbutton" value="Send">
-        <input type="text" name="message" id="" placeholder="message" class="messageinput textinput" >
+        <input type="text" name="message" id="" placeholder="message" class="messageinput textinput" required>
     </form>
 <% } %>
 <%-include("footer");-%>
