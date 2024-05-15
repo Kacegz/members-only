@@ -1,5 +1,8 @@
 <%-include("header");-%>
 <a href="/">Go back</a>
+<% if (typeof error!="undefined") { %>
+    <p class="error"><%=error%></p>
+<% } %>
 <form action="" method="post">
     <label for="code">
         <h3>Become an admin</h3>
