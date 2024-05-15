@@ -143,27 +143,3 @@ input{
 ::-webkit-scrollbar-thumb:hover {
   background: var(--mid); 
 }
-
-@media screen and (max-width:1000px) {
-  body{
-    align-items: center;
-    font-size: 40px;
-  }
-  input,.linkbutton,.deletebutton{
-    font-size: 40px;
-    width: unset;
-  }
-  .main{
-    padding: 70px;
-  }
-  .messages{
-    width: unset;
-    height: unset;
-    padding: 40px;
-    margin: 50px;
-    gap: 20px;
-  }
-  .message{
-    padding: 20px;
-  }
-}
