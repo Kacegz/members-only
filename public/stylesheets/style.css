@@ -11,7 +11,7 @@ p,h1,h2,h3,h4,h5{
 }
 body {
   padding: 10px;
-  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1.2rem "Lucida Grande", Helvetica, Arial, sans-serif;
   background: rgb(22, 22, 22);
   background: linear-gradient(90deg, rgba(22,22,22,1) 0%, rgba(39,39,39,1) 48%, rgba(22,22,22,1) 100%);
   color: white;
@@ -101,10 +101,10 @@ form{
   grid-template-rows: 1fr 1fr;
 }
 input{
-  font-size: 18px;
+  font-size: 1.3rem;
 }
 .smalllink{
-  font-size: 14px;
+  font-size: 1.0rem;
 }
 .deletebutton{
   background-color: var(--mid);
