@@ -1,6 +1,6 @@
 # Members only project
 ## Preview
-[Link](https://members-only-qpbm.onrender.com/)
+[Link](https://members-only-kacegz.up.railway.app/)
 ## Usage:
 Code to join to a member club: `M3mber` 
 
