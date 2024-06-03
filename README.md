@@ -12,4 +12,5 @@ An app which allows users to:
 - Join the member club (and see the authors and dates of messages)
 - Become an admin
 - Delete messages
+
 It uses passportjs and mongo store to allow users to log in and create sessions in the database
